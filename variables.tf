@@ -136,10 +136,48 @@ variable "controller_scopes" {
   description = ""
 }
 
-variable "controller_metadata" {
-  type = map(string)
-  description = "Metadata to apply to controller instances"
-  default = {}
+/*k8s worker vars*/
+variable "worker_count" {
+  type        = number
+  description = "Number of worker instances to provision"
+}
+
+variable "worker_name_prefix" {
+  type        = string
+  description = "Prefix for worker instance names"
+  default     = "worker-"
+}
+
+variable "worker_ip_forward" {
+  type        = bool
+  description = "Boolean; Can the instance IP forward?"
+  default     = true
+}
+
+variable "worker_machine_type" {
+  type        = string
+  description = "Instance type"
+}
+
+variable "worker_boot_disk_size" {
+  type        = number
+  description = "Size of the boot disk of each instance"
+}
+
+variable "worker_tags" {
+  type        = list(string)
+  description = "Tags to apply to worker instances"
+}
+
+variable "worker_scopes" {
+  type        = list(string)
+  description = ""
+}
+
+variable "worker_pod_cider" {
+  type        = string
+  description = "CIDR block for pod network"
+  default     = ""
 }
 
 locals {

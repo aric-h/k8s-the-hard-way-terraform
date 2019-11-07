@@ -50,7 +50,8 @@ variable "network_ip_prefix" {
   description = "IP address to apply to each instance, minus the count.index"
 }
 
-variable "metadata" {
-  type = map(string)
-  description = "Metadata to apply to each instance"
+variable "pod_cidr" {
+  type        = string
+  description = "Cidr block for pod network"
+  default     = ""
 }

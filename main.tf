@@ -73,5 +73,21 @@ module "k8s_controllers" {
   network_ip_prefix = join(".", [local.subnet_cidr_prefix, "1"])
   boot_disk_size    = var.controller_boot_disk_size
   boot_disk_image   = join("/", [var.boot_disk_image_project, var.boot_disk_image_family])
-  metadata = var.controller_metadata
+}
+
+/*worker resources*/
+module "k8s_workers" {
+  source = "./modules/google_compute_instance"
+
+  instance_count    = var.worker_count
+  name_prefix       = var.worker_name_prefix
+  machine_type      = var.worker_machine_type
+  zone              = var.project_zone
+  tags              = var.worker_tags
+  can_ip_forward    = var.worker_ip_forward
+  subnet            = google_compute_subnetwork.default.name
+  network_ip_prefix = join(".", [local.subnet_cidr_prefix, "2"])
+  boot_disk_size    = var.worker_boot_disk_size
+  boot_disk_image   = join("/", [var.boot_disk_image_project, var.boot_disk_image_family])
+  pod_cidr          = var.worker_pod_cider
 }

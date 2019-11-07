@@ -21,5 +21,5 @@ resource "google_compute_instance" "default" {
     access_config {} //needed for ephemeral IP
   }
 
-  metadata = var.metadata
+  metadata = var.pod_cidr == "" ? {} : { pod-cidr = replace(var.pod_cidr, "X", count.index) }
 }
